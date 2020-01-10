@@ -1,36 +1,57 @@
 <idea-plugin>
     <id>com.your.company.unique.plugin.id</id>
-    <name>Plugin display name here</name>
+    <name>Bean Converter</name>
     <version>1.0</version>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <vendor email="sudajiaqi@163.com" url="https://github.com/GodMoonLight">Jia Qi</vendor>
 
     <description>
         <![CDATA[
 
           <h1>Bean Converter</h1>
       <br/>
-      <a href="https://github.com/DudarevDaniel/ConverterGenerator">GitHub</a>
+      <a href="https://github.com/GodMoonLight/bean-converter">GitHub</a>
       <br/>
       Custom plugin for generating the <b>converter method</b> by matching setters and getters of given classes.
       Plugin generates the converter method (code) for you in your class.
       <br/>
       <br/>
       <b>Usage:</b>
+       <h4>Converter method</h4>
       <ul>
-        <li>Put the caret in any place within the class, press <b>Alt+Ins</b> and select <b>"Generate converter method"</b> in menu or use the shortcut <b>Ctrl+Alt+G</b>.</li>
+        <li>Put the caret in any place within the class, press <b>Alt+Ins</b> or <b>Command + n</b></li>
+        <li>select <b>"Converter method"</b> in menu or use the shortcut <b>Ctrl+Alt+G</b>.</li>
         <li>In the dialog select the Class you want to convert <b>To</b> and select the class you want to convert <b>From</b>.</li>
         <li>Press "Ok" and converter method will be added to your current class.</li>
         <li>Plugin also writes in comments list of fields, that were not mapped (appropriate setter or getter is missing or different types).</li>
-      </ul>
-      Enter short description for your plugin here.<br>
-      <em>most HTML tags may be used</em>
+       </ul>
+
+       <h4>Converter to method</h4>
+         <ul>
+        <li>Put the caret in any place within the class, press <b>Alt+Ins</b> or <b>Command + n</b></li>
+        <li>select <b>"Converter to method"</b> in menu </li>
+        <li>In the dialog select the Class you want to convert <b>To</b>.</li>
+        <li>Press "Ok" and converter method will be added to your current class.</li>
+        <li>Plugin also writes in comments list of fields, that were not mapped (appropriate setter or getter is missing or different types).</li>
+       </ul>
+
+       <h4>Converter from method</h4>
+         <ul>
+        <li>Put the caret in any place within the class, press <b>Alt+Ins</b> or <b>Command + n</b></li>
+        <li>select <b>"Converter From method"</b> in menu </li>
+        <li>In the dialog select the Class you want to convert <b>From</b>.</li>
+        <li>Press "Ok" and converter method will be added to your current class.</li>
+        <li>Plugin also writes in comments list of fields, that were not mapped (appropriate setter or getter is missing or different types).</li>
+       </ul>
     ]]>
     </description>
 
     <change-notes>
         <![CDATA[
-        Add change notes here.<br>
-        <em>most HTML tags may be used</em>]]>
+        <h1>1.0</h4>
+        <ul>
+        <li>add three methods to generate code</li>
+        </ul>
+    ]]>
     </change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
