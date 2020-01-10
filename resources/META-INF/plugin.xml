@@ -1,5 +1,5 @@
 <idea-plugin>
-    <id>com.your.company.unique.plugin.id</id>
+    <id>com.jiaqi.converter</id>
     <name>Bean Converter</name>
     <version>1.0</version>
     <vendor email="sudajiaqi@163.com" url="https://github.com/GodMoonLight">Jia Qi</vendor>
