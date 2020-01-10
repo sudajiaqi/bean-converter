@@ -1,0 +1,10 @@
+
+nsquid:UselessImportCheck">Remove this unused import 'com.intellij.psi.util.PsiTreeUtil'.(–¢Û¶şÿÿÿÿ8×¨÷-
+hsquid:UnusedPrivateMethod"7Remove this unused private "buildConvertMethod" method.(Şª¥Àÿÿÿÿÿ8¹×¨÷-
+`squid:UselessImportCheck"5Remove this unused import 'com.intellij.psi.PsiFile'.(Íæš8×¨÷-
+vsquid:UselessImportCheck"KRemove this unused import 'com.intellij.openapi.actionSystem.LangDataKeys'.(Ë™şˆ8×¨÷-
+wsquid:UselessImportCheck"LRemove this unused import 'com.intellij.openapi.command.WriteCommandAction'.(¾®ğ¨8¹×¨÷-
+osquid:UselessImportCheck	"?Remove this unused import 'com.intellij.openapi.editor.Editor'.(¹á”úÿÿÿÿ8×¨÷-
+squid:UselessImportCheck"ORemove this unused import 'com.intellij.openapi.actionSystem.PlatformDataKeys'.(ğ¡´”úÿÿÿÿ8×¨÷-
+|squid:UselessImportCheck"LRemove this unused import 'com.intellij.openapi.actionSystem.AnActionEvent'.(¤ŞÌøÿÿÿÿ8×¨÷-
+rsquid:UselessImportCheck"GRemove this unused import 'com.intellij.openapi.actionSystem.AnAction'.(ÃÎÆ–8¼œ¨÷-

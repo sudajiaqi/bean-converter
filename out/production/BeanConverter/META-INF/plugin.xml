@@ -1,0 +1,78 @@
+<idea-plugin>
+    <id>com.your.company.unique.plugin.id</id>
+    <name>Plugin display name here</name>
+    <version>1.0</version>
+    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+
+    <description>
+        <![CDATA[
+
+          <h1>Bean Converter</h1>
+      <br/>
+      <a href="https://github.com/DudarevDaniel/ConverterGenerator">GitHub</a>
+      <br/>
+      Custom plugin for generating the <b>converter method</b> by matching setters and getters of given classes.
+      Plugin generates the converter method (code) for you in your class.
+      <br/>
+      <br/>
+      <b>Usage:</b>
+      <ul>
+        <li>Put the caret in any place within the class, press <b>Alt+Ins</b> and select <b>"Generate converter method"</b> in menu or use the shortcut <b>Ctrl+Alt+G</b>.</li>
+        <li>In the dialog select the Class you want to convert <b>To</b> and select the class you want to convert <b>From</b>.</li>
+        <li>Press "Ok" and converter method will be added to your current class.</li>
+        <li>Plugin also writes in comments list of fields, that were not mapped (appropriate setter or getter is missing or different types).</li>
+      </ul>
+      Enter short description for your plugin here.<br>
+      <em>most HTML tags may be used</em>
+    ]]>
+    </description>
+
+    <change-notes>
+        <![CDATA[
+        Add change notes here.<br>
+        <em>most HTML tags may be used</em>]]>
+    </change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="173.0" />
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+
+        <action id="Converter.to" class="com.jiaqi.converter.ConverterToAction"
+                text="Converter to method"
+                description="Generates method for converting the instance of one class">
+            <add-to-group group-id="JavaGenerateGroup1" anchor="after"
+                          relative-to-action="Actions.ActionsPlugin.GenerateToString" />
+        </action>
+
+        <action id="Converter.from" class="com.jiaqi.converter.ConverterFromAction"
+                text="Converter from method"
+                description="Generates method for converting the instance of one class to another">
+            <add-to-group group-id="JavaGenerateGroup1" anchor="after"
+                          relative-to-action="Actions.ActionsPlugin.GenerateToString" />
+        </action>
+        <!-- Add your actions here -->
+        <action
+                id="ConverterAction"
+                class="com.jiaqi.converter.ConverterAction"
+                text="Converter method"
+                description="Generates method for converting the instance of one class to another"
+        >
+            <add-to-group
+                    group-id="JavaGenerateGroup1"
+                    anchor="after"
+                    relative-to-action="Actions.ActionsPlugin.GenerateToString"
+            />
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt G" />
+        </action>
+    </actions>
+
+</idea-plugin>
