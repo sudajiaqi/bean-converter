@@ -52,7 +52,6 @@ public class ConverterDialog extends DialogWrapper {
             this.fromField = createTextField(classNamesForAutocompletion);
             LabeledComponent<TextFieldWithAutoCompletion> convertFromComponent = LabeledComponent.create(fromField, "Convert From class");
             dialog.add(convertFromComponent);
-            this.fromField.requestFocus();
         }
 
         if (to) {
