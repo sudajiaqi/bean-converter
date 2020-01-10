@@ -51,6 +51,16 @@
         <ul>
         <li>add three methods to generate code</li>
         </ul>
+                <h1>1.1</h4>
+        <ul>
+        <li>add if condition to judge null like</li>
+         <code>
+         if (from==null){
+            return null;
+         }
+          </code>
+
+        </ul>
     ]]>
     </change-notes>
 

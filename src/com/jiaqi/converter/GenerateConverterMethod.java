@@ -1,6 +1,8 @@
 package com.jiaqi.converter;
 
 import com.intellij.psi.PsiClass;
+import com.jiaqi.converter.ClassMapResult;
+import com.jiaqi.converter.GenerateMethod;
 import com.jiaqi.converter.utils.ProjectUtil;
 import com.jiaqi.converter.utils.SuggestionName;
 import org.jetbrains.annotations.NotNull;
@@ -8,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author jiaqi
  */
-public class GenerateFromMethod implements GenerateMethod {
+public class GenerateConverterMethod implements GenerateMethod {
 
     private final ClassMapResult mapResult;
 
@@ -18,7 +20,7 @@ public class GenerateFromMethod implements GenerateMethod {
 
     private final String fromClassName;
 
-    public GenerateFromMethod(ClassMapResult mapResult) {
+    public GenerateConverterMethod(ClassMapResult mapResult) {
         this.mapResult = mapResult;
         this.toClassName = mapResult.getTo().getQualifiedName();
         this.fromClassName = mapResult.getFrom().getQualifiedName();
@@ -27,11 +29,11 @@ public class GenerateFromMethod implements GenerateMethod {
     }
 
     @NotNull
-    private StringBuilder buildMethodSignature(PsiClass to, PsiClass from) {
+    private StringBuilder buildMethodSignature() {
 
         StringBuilder builder = new StringBuilder("public static ");
         builder.append(this.toClassName);
-        builder.append(" from");
+        builder.append(" to").append(mapResult.getTo().getName());
         builder.append("(").append(this.fromClassName).append(" ").append(this.fromName).append(") {\n");
         builder.append("if (").append(this.fromName).append(" == null) {\nreturn null;\n}\n");
         builder.append(this.toClassName)
@@ -46,8 +48,7 @@ public class GenerateFromMethod implements GenerateMethod {
     @Override
     public String generate() {
 
-        StringBuilder builder = buildMethodSignature(mapResult.getTo(), mapResult.getFrom());
-
+        StringBuilder builder = buildMethodSignature();
         String indentation = ProjectUtil.getProjectIndentation(mapResult.getFrom());
         builder.append(writeMappedFields());
         builder.append(writeNotMappedFields(mapResult.getNotMappedToFields(), indentation, mapResult.getTo().getQualifiedName()));
