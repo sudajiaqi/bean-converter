@@ -1,7 +1,5 @@
 package com.jiaqi.converter;
 
-import com.intellij.psi.PsiClass;
-import com.jiaqi.converter.utils.ProjectUtil;
 import com.jiaqi.converter.utils.SuggestionName;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,6 +11,7 @@ public class GenerateToMethod implements GenerateMethod {
     private final ClassMapResult mapResult;
 
     private final String toClassName;
+
     private final String toName;
 
     public GenerateToMethod(ClassMapResult mapResult) {
@@ -36,21 +35,14 @@ public class GenerateToMethod implements GenerateMethod {
         return builder;
     }
 
-
     @Override
     public String generate() {
-
         StringBuilder builder = buildMethodSignature();
-        String indentation = ProjectUtil.getProjectIndentation(mapResult.getFrom());
-
         builder.append(writeMappedFields());
-        builder.append(writeNotMappedFields(mapResult.getNotMappedToFields(), indentation, this.toClassName));
-        builder.append(writeNotMappedFields(mapResult.getNotMappedFromFields(), indentation, mapResult.getFrom().getName()));
-
+        builder.append(mapResult.writeNotMappedFields());
         builder.append("return ").append(this.toName).append(";\n}");
         return builder.toString();
     }
-
 
     @NotNull
     private String writeMappedFields() {

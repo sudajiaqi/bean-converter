@@ -1,9 +1,5 @@
 package com.jiaqi.converter;
 
-import com.intellij.psi.PsiClass;
-import com.jiaqi.converter.ClassMapResult;
-import com.jiaqi.converter.GenerateMethod;
-import com.jiaqi.converter.utils.ProjectUtil;
 import com.jiaqi.converter.utils.SuggestionName;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,7 +11,9 @@ public class GenerateConverterMethod implements GenerateMethod {
     private final ClassMapResult mapResult;
 
     private final String toClassName;
+
     private final String toName;
+
     private final String fromName;
 
     private final String fromClassName;
@@ -49,11 +47,8 @@ public class GenerateConverterMethod implements GenerateMethod {
     public String generate() {
 
         StringBuilder builder = buildMethodSignature();
-        String indentation = ProjectUtil.getProjectIndentation(mapResult.getFrom());
         builder.append(writeMappedFields());
-        builder.append(writeNotMappedFields(mapResult.getNotMappedToFields(), indentation, mapResult.getTo().getQualifiedName()));
-        builder.append(writeNotMappedFields(mapResult.getNotMappedFromFields(), indentation, mapResult.getFrom().getQualifiedName()));
-
+        builder.append(mapResult.writeNotMappedFields());
         builder.append("return ").append(this.toName).append(";\n}");
 
         return builder.toString();

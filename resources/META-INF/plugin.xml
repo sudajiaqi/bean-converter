@@ -49,17 +49,21 @@
         <![CDATA[
         <h1>1.0</h4>
         <ul>
-        <li>add three methods to generate code</li>
+            <li>add three methods to generate code</li>
         </ul>
-                <h1>1.1</h4>
+        <h1>1.1</h4>
         <ul>
-        <li>add if condition to judge null like</li>
+            <li>add if condition to judge null like</li>
          <code>
          if (from==null){
             return null;
          }
           </code>
 
+        </ul>
+        <h1>1.2</h4>
+        <ul>
+            <li>refactor code</li>
         </ul>
     ]]>
     </change-notes>

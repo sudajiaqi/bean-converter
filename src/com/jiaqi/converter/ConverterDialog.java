@@ -7,11 +7,11 @@ import com.intellij.openapi.ui.LabeledComponent;
 import com.intellij.openapi.ui.ValidationInfo;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiClass;
-import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.search.PsiShortNamesCache;
 import com.intellij.ui.TextFieldWithAutoCompletion;
 import com.intellij.util.indexing.FileBasedIndex;
+import com.intellij.util.indexing.ID;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
@@ -44,7 +44,7 @@ public class ConverterDialog extends DialogWrapper {
     public ConverterDialog(PsiClass psiClass, boolean from, boolean to) {
         super(psiClass.getProject());
         this.psiClass = psiClass;
-        this.dialog = createConverterDialog(from, to);
+        this.dialog = createConverterDialog();
         List<String> classNamesForAutocompletion = getClassNamesForAutocompletion();
 
         this.inheritFields = new JCheckBox("Use inherited fields");
@@ -81,18 +81,11 @@ public class ConverterDialog extends DialogWrapper {
         return dialog;
     }
 
-    private JPanel createConverterDialog(boolean from, boolean to) {
+    private JPanel createConverterDialog() {
         setTitle("Select Classes for Conversion");
-        JPanel dialog = new JPanel();
-        dialog.setLayout(new GridLayout(0, 1));
-
-//        int heightSize = from ? 2: 1;
-//        heightSize = to ? heightSize + 1 : heightSize;
-//        int height = BASE_LINE * heightSize;
-//        dialog.setPreferredSize(JBUI.size(WIDTH, height));
-//        dialog.setMinimumSize(JBUI.size(WIDTH, height));
-//        dialog.setMaximumSize(JBUI.size(WIDTH + 100, height + 20));
-        return dialog;
+        JPanel jPanel = new JPanel();
+        jPanel.setLayout(new GridLayout(0, 1));
+        return jPanel;
     }
 
     private List<String> getClassNamesForAutocompletion() {
@@ -103,7 +96,7 @@ public class ConverterDialog extends DialogWrapper {
 
         List<String> projectFiles = FileBasedIndex.getInstance()
                 .getContainingFiles(
-                        FileTypeIndex.NAME,
+                        ID.create("filetypes"),
                         JavaFileType.INSTANCE,
                         GlobalSearchScope.allScope(psiClass.getProject())
                 ).stream()
