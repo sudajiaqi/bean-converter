@@ -1,7 +1,5 @@
 package com.jiaqi.converter;
 
-import com.intellij.psi.PsiClass;
-import com.jiaqi.converter.utils.ProjectUtil;
 import com.jiaqi.converter.utils.SuggestionName;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,7 +11,9 @@ public class GenerateFromMethod implements GenerateMethod {
     private final ClassMapResult mapResult;
 
     private final String toClassName;
+
     private final String toName;
+
     private final String fromName;
 
     private final String fromClassName;
@@ -27,8 +27,7 @@ public class GenerateFromMethod implements GenerateMethod {
     }
 
     @NotNull
-    private StringBuilder buildMethodSignature(PsiClass to, PsiClass from) {
-
+    private StringBuilder buildMethodSignature() {
         StringBuilder builder = new StringBuilder("public static ");
         builder.append(this.toClassName);
         builder.append(" from");
@@ -45,14 +44,9 @@ public class GenerateFromMethod implements GenerateMethod {
 
     @Override
     public String generate() {
-
-        StringBuilder builder = buildMethodSignature(mapResult.getTo(), mapResult.getFrom());
-
-        String indentation = ProjectUtil.getProjectIndentation(mapResult.getFrom());
+        StringBuilder builder = buildMethodSignature();
         builder.append(writeMappedFields());
-        builder.append(writeNotMappedFields(mapResult.getNotMappedToFields(), indentation, mapResult.getTo().getQualifiedName()));
-        builder.append(writeNotMappedFields(mapResult.getNotMappedFromFields(), indentation, mapResult.getFrom().getQualifiedName()));
-
+        builder.append(mapResult.writeNotMappedFields());
         builder.append("return ").append(this.toName).append(";\n}");
 
         return builder.toString();

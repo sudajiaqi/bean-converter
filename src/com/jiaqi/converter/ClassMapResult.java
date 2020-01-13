@@ -5,6 +5,7 @@ import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiField;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiType;
+import com.jiaqi.converter.utils.ProjectUtil;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.jetbrains.annotations.NotNull;
@@ -125,7 +126,7 @@ public class ClassMapResult {
     }
 
 
-    public String getGetter(String field){
+    public String getGetter(String field) {
         String methodSuffix = field.substring(0, 1).toUpperCase() + field.substring(1);
         PsiMethod[] getters = from.findMethodsByName("get" + methodSuffix, true);
         if (getters.length > 0) {
@@ -138,7 +139,7 @@ public class ClassMapResult {
         return null;
     }
 
-    public String getSetter(String field){
+    public String getSetter(String field) {
         String methodSuffix = field.substring(0, 1).toUpperCase() + field.substring(1);
         PsiMethod[] getters = from.findMethodsByName("set" + methodSuffix, true);
         if (getters.length > 0) {
@@ -146,6 +147,7 @@ public class ClassMapResult {
         }
         return null;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -181,4 +183,28 @@ public class ClassMapResult {
     public PsiClass getTo() {
         return to;
     }
+
+    private String writeNotMappedFields(List<String> notMappedFields, PsiClass psiClass) {
+        String indentation = ProjectUtil.getProjectIndentation(psiClass);
+        StringBuilder builder = new StringBuilder();
+        if (!notMappedFields.isEmpty()) {
+            builder.append("\n")
+                    .append(indentation)
+                    .append("// Not mapped ")
+                    .append(psiClass.getName())
+                    .append(" fields: \n");
+        }
+        for (String notMappedField : notMappedFields) {
+            builder.append(indentation)
+                    .append("// ")
+                    .append(notMappedField)
+                    .append("\n");
+        }
+        return builder.toString();
+    }
+
+    public String writeNotMappedFields() {
+        return writeNotMappedFields(this.notMappedFromFields, this.from) + writeNotMappedFields(this.notMappedToFields, this.to);
+    }
+
 }
