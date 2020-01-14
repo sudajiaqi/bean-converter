@@ -79,8 +79,7 @@ public class ClassMapResult {
     private static void processFromFields(PsiClass from, ClassMapResult mappingResult, boolean useInherited) {
         for (PsiField fromField : getFields(from, useInherited)) {
             String fromFieldName = fromField.getName();
-            if (fromFieldName != null
-                    && !fromField.hasModifier(JvmModifier.STATIC)
+            if (!fromField.hasModifier(JvmModifier.STATIC)
                     && !mappingResult.getMappedFields().contains(fromFieldName)) {
                 mappingResult.addNotMappedFromField(fromFieldName);
             }
