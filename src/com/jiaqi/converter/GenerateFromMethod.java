@@ -23,7 +23,12 @@ public class GenerateFromMethod implements GenerateMethod {
         this.toClassName = mapResult.getTo().getQualifiedName();
         this.fromClassName = mapResult.getFrom().getQualifiedName();
         this.fromName = SuggestionName.get(mapResult.getFrom());
-        this.toName = SuggestionName.get(mapResult.getTo());
+        String toName = SuggestionName.get(mapResult.getTo());
+        if (this.fromName.equals(toName)) {
+            this.toName = toName + "1";
+        }else {
+            this.toName = toName;
+        }
     }
 
     @NotNull
