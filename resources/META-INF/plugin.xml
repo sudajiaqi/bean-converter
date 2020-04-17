@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.jiaqi.converter</id>
     <name>Bean Converter</name>
-    <version>1.4</version>
+    <version>1.5</version>
     <vendor email="sudajiaqi@163.com" url="https://github.com/GodMoonLight">Jia Qi</vendor>
 
     <description>
@@ -72,6 +72,10 @@
                   <h1>1.4</h4>
         <ul>
             <li>fix error when convert the bean itself </li>
+        </ul>
+                          <h1>1.5</h4>
+        <ul>
+            <li>fix not working in IDEA2020.1 </li>
         </ul>
     ]]>
     </change-notes>

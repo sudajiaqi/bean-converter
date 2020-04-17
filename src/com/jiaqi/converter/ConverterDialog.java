@@ -96,7 +96,7 @@ public class ConverterDialog extends DialogWrapper {
 
         List<String> projectFiles = FileBasedIndex.getInstance()
                 .getContainingFiles(
-                        ID.create("filetypes"),
+                        ID.findByName("filetypes"),
                         JavaFileType.INSTANCE,
                         GlobalSearchScope.allScope(psiClass.getProject())
                 ).stream()
