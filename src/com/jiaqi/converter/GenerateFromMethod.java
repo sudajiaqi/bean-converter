@@ -26,7 +26,7 @@ public class GenerateFromMethod implements GenerateMethod {
         String toName = SuggestionName.get(mapResult.getTo());
         if (this.fromName.equals(toName)) {
             this.toName = toName + "1";
-        }else {
+        } else {
             this.toName = toName;
         }
     }

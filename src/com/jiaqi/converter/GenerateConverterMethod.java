@@ -26,7 +26,7 @@ public class GenerateConverterMethod implements GenerateMethod {
         String toName = SuggestionName.get(mapResult.getTo());
         if (this.fromName.equals(toName)) {
             this.toName = toName + "1";
-        }else {
+        } else {
             this.toName = toName;
         }
     }
@@ -47,7 +47,6 @@ public class GenerateConverterMethod implements GenerateMethod {
         return builder;
     }
 
-
     @Override
     public String generate() {
 
@@ -58,7 +57,6 @@ public class GenerateConverterMethod implements GenerateMethod {
 
         return builder.toString();
     }
-
 
     @NotNull
     private String writeMappedFields() {
