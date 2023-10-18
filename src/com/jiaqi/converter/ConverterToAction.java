@@ -3,14 +3,9 @@ package com.jiaqi.converter;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.command.WriteCommandAction;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementFactory;
-import com.intellij.psi.PsiMethod;
+import com.intellij.psi.*;
 import com.intellij.psi.codeStyle.JavaCodeStyleManager;
 import com.jiaqi.converter.utils.ProjectUtil;
-
 
 /**
  * @author jiaqi
@@ -58,6 +53,5 @@ public class ConverterToAction extends AnAction {
             JavaCodeStyleManager.getInstance(from.getProject()).shortenClassReferences(psiElement);
         };
     }
-
 
 }
