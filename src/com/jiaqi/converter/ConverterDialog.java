@@ -2,25 +2,28 @@ package com.jiaqi.converter;
 
 import com.intellij.ide.highlighter.JavaFileType;
 import com.intellij.openapi.fileEditor.impl.EditorHistoryManager;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.ui.LabeledComponent;
 import com.intellij.openapi.ui.ValidationInfo;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiJavaFile;
+import com.intellij.psi.PsiManager;
+import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.search.PsiShortNamesCache;
+import com.intellij.psi.util.PsiUtilCore;
 import com.intellij.ui.TextFieldWithAutoCompletion;
-import com.intellij.util.indexing.FileBasedIndex;
-import com.intellij.util.indexing.ID;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toList;
-
+import java.util.stream.Collectors;
 
 /**
  * @author jiaqi
@@ -50,13 +53,15 @@ public class ConverterDialog extends DialogWrapper {
         this.inheritFields = new JCheckBox("Use inherited fields");
         if (from) {
             this.fromField = createTextField(classNamesForAutocompletion);
-            LabeledComponent<TextFieldWithAutoCompletion> convertFromComponent = LabeledComponent.create(fromField, "Convert From class");
+            LabeledComponent<TextFieldWithAutoCompletion<String>> convertFromComponent =
+                    LabeledComponent.create(fromField, "Convert From class");
             dialog.add(convertFromComponent);
         }
 
         if (to) {
             this.toField = createTextField(classNamesForAutocompletion);
-            LabeledComponent<TextFieldWithAutoCompletion> convertToComponent = LabeledComponent.create(toField, "Convert To class");
+            LabeledComponent<TextFieldWithAutoCompletion<String>> convertToComponent =
+                    LabeledComponent.create(toField, "Convert To class");
             dialog.add(convertToComponent);
         }
 
@@ -89,22 +94,43 @@ public class ConverterDialog extends DialogWrapper {
     }
 
     private List<String> getClassNamesForAutocompletion() {
-        List<String> history = Stream.of(EditorHistoryManager.getInstance(psiClass.getProject()).getFiles())
-                .map(VirtualFile::getNameWithoutExtension)
+        Project project = this.psiClass.getProject();
+        EditorHistoryManager editorHistoryManager = EditorHistoryManager.getInstance(project);
+        PsiManager psiManager = PsiManager.getInstance(project);
+        JavaPsiFacade javaPsiFacade = JavaPsiFacade.getInstance(project);
+        List<String> classNames = new LinkedList<>();
+
+        // history
+        Collection<VirtualFile> historyJavaVirtualFiles = editorHistoryManager.getFileList()
+                .stream()
+                .filter(vf -> JavaFileType.INSTANCE.equals(vf.getFileType()))
                 .distinct()
-                .collect(toList());
+                .collect(Collectors.toList());
+        PsiUtilCore.toPsiFiles(psiManager, historyJavaVirtualFiles)
+                .stream()
+                .map(psiFile -> (PsiJavaFile) psiFile)
+                .flatMap(psiJavaFile -> Arrays.stream(psiJavaFile.getClasses())
+                        .map(PsiClass::getQualifiedName)
+                        .distinct()
+                )
+                .forEach(classNames::add);
 
-        List<String> projectFiles = FileBasedIndex.getInstance()
-                .getContainingFiles(
-                        ID.findByName("filetypes"),
-                        JavaFileType.INSTANCE,
-                        GlobalSearchScope.allScope(psiClass.getProject())
-                ).stream()
-                .map(VirtualFile::getNameWithoutExtension)
-                .collect(toList());
+        // project file
+        Collection<VirtualFile> indexedJavaVirtualFiles = FileTypeIndex.getFiles(
+                JavaFileType.INSTANCE,
+                GlobalSearchScope.allScope(project));
+        PsiUtilCore.toPsiFiles(psiManager, indexedJavaVirtualFiles)
+                .stream()
+                .map(psiFile -> (PsiJavaFile) psiFile)
+                .flatMap(psiJavaFile -> Arrays.stream(psiJavaFile.getClasses())
+                        .map(PsiClass::getQualifiedName)
+                        .distinct()
+                )
+                .filter(qn -> !classNames.contains(qn))
+                .distinct()
+                .forEach(classNames::add);
 
-        history.addAll(projectFiles);
-        return history;
+        return classNames;
     }
 
     private TextFieldWithAutoCompletion<String> createTextField(List<String> classNames) {
@@ -131,7 +157,9 @@ public class ConverterDialog extends DialogWrapper {
         if (className.isEmpty()) {
             throw new IllegalArgumentException("Should select smth");
         }
-        PsiClass[] resolvedClasses = PsiShortNamesCache.getInstance(psiClass.getProject()).getClassesByName(className, GlobalSearchScope.projectScope(psiClass.getProject()));
+        Project project = this.psiClass.getProject();
+        JavaPsiFacade javaPsiFacade = JavaPsiFacade.getInstance(project);
+        PsiClass[] resolvedClasses = javaPsiFacade.findClasses(className, GlobalSearchScope.projectScope(project));
         if (resolvedClasses.length == 0) {
             throw new IllegalArgumentException("No such class found: " + className);
         }
@@ -146,7 +174,9 @@ public class ConverterDialog extends DialogWrapper {
         if (className.isEmpty()) {
             return new ValidationInfo(String.format("%s class should be selected", fieldName), textField);
         }
-        PsiClass[] resolvedClasses = PsiShortNamesCache.getInstance(psiClass.getProject()).getClassesByName(className, GlobalSearchScope.projectScope(psiClass.getProject()));
+        Project project = this.psiClass.getProject();
+        JavaPsiFacade javaPsiFacade = JavaPsiFacade.getInstance(project);
+        PsiClass[] resolvedClasses = javaPsiFacade.findClasses(className, GlobalSearchScope.projectScope(project));
         if (resolvedClasses.length == 0) {
             return new ValidationInfo(String.format("Failed to find a class %s in the current project", className), textField);
         }

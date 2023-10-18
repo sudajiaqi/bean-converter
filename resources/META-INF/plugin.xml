@@ -1,13 +1,12 @@
 <idea-plugin>
     <id>com.jiaqi.converter</id>
     <name>Bean Converter</name>
-    <version>1.5</version>
+    <version>1.6</version>
     <vendor email="sudajiaqi@163.com" url="https://github.com/GodMoonLight">Jia Qi</vendor>
 
     <description>
         <![CDATA[
-
-          <h1>Bean Converter</h1>
+      <h1>Bean Converter</h1>
       <br/>
       <a href="https://github.com/GodMoonLight/bean-converter">GitHub</a>
       <br/>
@@ -16,72 +15,75 @@
       <br/>
       <br/>
       <b>Usage:</b>
-       <h4>Converter method</h4>
+      <h4>Converter method</h4>
       <ul>
         <li>Put the caret in any place within the class, press <b>Alt+Ins</b> or <b>Command + n</b></li>
         <li>select <b>"Converter method"</b> in menu or use the shortcut <b>Ctrl+Alt+G</b>.</li>
         <li>In the dialog select the Class you want to convert <b>To</b> and select the class you want to convert <b>From</b>.</li>
         <li>Press "Ok" and converter method will be added to your current class.</li>
         <li>Plugin also writes in comments list of fields, that were not mapped (appropriate setter or getter is missing or different types).</li>
-       </ul>
+      </ul>
 
-       <h4>Converter to method</h4>
-         <ul>
+      <h4>Converter to method</h4>
+      <ul>
         <li>Put the caret in any place within the class, press <b>Alt+Ins</b> or <b>Command + n</b></li>
         <li>select <b>"Converter to method"</b> in menu </li>
         <li>In the dialog select the Class you want to convert <b>To</b>.</li>
         <li>Press "Ok" and converter method will be added to your current class.</li>
         <li>Plugin also writes in comments list of fields, that were not mapped (appropriate setter or getter is missing or different types).</li>
-       </ul>
+      </ul>
 
-       <h4>Converter from method</h4>
-         <ul>
+      <h4>Converter from method</h4>
+      <ul>
         <li>Put the caret in any place within the class, press <b>Alt+Ins</b> or <b>Command + n</b></li>
         <li>select <b>"Converter From method"</b> in menu </li>
         <li>In the dialog select the Class you want to convert <b>From</b>.</li>
         <li>Press "Ok" and converter method will be added to your current class.</li>
         <li>Plugin also writes in comments list of fields, that were not mapped (appropriate setter or getter is missing or different types).</li>
-       </ul>
-    ]]>
+      </ul>
+        ]]>
     </description>
 
     <change-notes>
         <![CDATA[
-        <h1>1.0</h4>
+        <h4>1.6</h4>
         <ul>
-            <li>add three methods to generate code</li>
+            <li>Use qualified class name to resolve the same class name problem.</li>
         </ul>
-        <h1>1.1</h4>
-        <ul>
-            <li>add if condition to judge null like</li>
-         <code>
-         if (from==null){
-            return null;
-         }
-          </code>
-
-        </ul>
-        <h1>1.2</h4>
-        <ul>
-            <li>refactor code</li>
-        </ul>
-          <h1>1.3</h4>
-        <ul>
-            <li>add <code><depends>com.intellij.modules.java</depends></code></li>
-        </ul>
-                  <h1>1.4</h4>
-        <ul>
-            <li>fix error when convert the bean itself </li>
-        </ul>
-                          <h1>1.5</h4>
+        <h4>1.5</h4>
         <ul>
             <li>fix not working in IDEA2020.1 </li>
         </ul>
-    ]]>
+        <h4>1.4</h4>
+        <ul>
+            <li>fix error when convert the bean itself </li>
+        </ul>
+        <h4>1.3</h4>
+        <ul>
+            <li>add <code><depends>com.intellij.modules.java</depends></code></li>
+        </ul>
+        <h4>1.2</h4>
+        <ul>
+            <li>refactor code</li>
+        </ul>
+        <h4>1.1</h4>
+        <ul>
+            <li>add if condition to judge null like</li>
+            <code>
+            if (from == null){
+                return null;
+            }
+            </code>
+        </ul>
+        <h4>1.0</h4>
+        <ul>
+            <li>add three methods to generate code</li>
+        </ul>
+        ]]>
     </change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="173.0" />
+    <idea-version since-build="173.0"/>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
@@ -98,14 +100,14 @@
                 text="Converter to method"
                 description="Generates method for converting the instance of one class">
             <add-to-group group-id="JavaGenerateGroup1" anchor="after"
-                          relative-to-action="Actions.ActionsPlugin.GenerateToString" />
+                          relative-to-action="Actions.ActionsPlugin.GenerateToString"/>
         </action>
 
         <action id="Converter.from" class="com.jiaqi.converter.ConverterFromAction"
                 text="Converter from method"
                 description="Generates method for converting the instance of one class to another">
             <add-to-group group-id="JavaGenerateGroup1" anchor="after"
-                          relative-to-action="Actions.ActionsPlugin.GenerateToString" />
+                          relative-to-action="Actions.ActionsPlugin.GenerateToString"/>
         </action>
         <!-- Add your actions here -->
         <action
@@ -119,7 +121,7 @@
                     anchor="after"
                     relative-to-action="Actions.ActionsPlugin.GenerateToString"
             />
-            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt G" />
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt G"/>
         </action>
     </actions>
 
