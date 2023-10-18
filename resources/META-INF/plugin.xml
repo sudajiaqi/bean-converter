@@ -15,28 +15,28 @@
       <br/>
       <br/>
       <b>Usage:</b>
-      <h4>Converter method</h4>
+      <h4>Converter Method</h4>
       <ul>
-        <li>Put the caret in any place within the class, press <b>Alt+Ins</b> or <b>Command + n</b></li>
-        <li>select <b>"Converter method"</b> in menu or use the shortcut <b>Ctrl+Alt+G</b>.</li>
+        <li>Put the caret in any place within the class, press <b>Alt + Ins</b> or <b>Command + N</b>.</li>
+        <li>Select <b>"Converter Method"</b> in menu or use the shortcut <b>Ctrl + Alt + G</b>.</li>
         <li>In the dialog select the Class you want to convert <b>To</b> and select the class you want to convert <b>From</b>.</li>
         <li>Press "Ok" and converter method will be added to your current class.</li>
         <li>Plugin also writes in comments list of fields, that were not mapped (appropriate setter or getter is missing or different types).</li>
       </ul>
 
-      <h4>Converter to method</h4>
+      <h4>Converter to Method</h4>
       <ul>
-        <li>Put the caret in any place within the class, press <b>Alt+Ins</b> or <b>Command + n</b></li>
-        <li>select <b>"Converter to method"</b> in menu </li>
+        <li>Put the caret in any place within the class, press <b>Alt + Ins</b> or <b>Command + N</b>.</li>
+        <li>Select <b>"Converter to Method"</b> in menu.</li>
         <li>In the dialog select the Class you want to convert <b>To</b>.</li>
         <li>Press "Ok" and converter method will be added to your current class.</li>
         <li>Plugin also writes in comments list of fields, that were not mapped (appropriate setter or getter is missing or different types).</li>
       </ul>
 
-      <h4>Converter from method</h4>
+      <h4>Converter from Method</h4>
       <ul>
-        <li>Put the caret in any place within the class, press <b>Alt+Ins</b> or <b>Command + n</b></li>
-        <li>select <b>"Converter From method"</b> in menu </li>
+        <li>Put the caret in any place within the class, press <b>Alt+Ins</b> or <b>Command + N</b>.</li>
+        <li>Select <b>"Converter From Method"</b> in menu.</li>
         <li>In the dialog select the Class you want to convert <b>From</b>.</li>
         <li>Press "Ok" and converter method will be added to your current class.</li>
         <li>Plugin also writes in comments list of fields, that were not mapped (appropriate setter or getter is missing or different types).</li>
@@ -97,23 +97,23 @@
     <actions>
 
         <action id="Converter.to" class="com.jiaqi.converter.ConverterToAction"
-                text="Converter to method"
+                text="Converter to Method"
                 description="Generates method for converting the instance of one class">
             <add-to-group group-id="JavaGenerateGroup1" anchor="after"
                           relative-to-action="Actions.ActionsPlugin.GenerateToString"/>
         </action>
 
         <action id="Converter.from" class="com.jiaqi.converter.ConverterFromAction"
-                text="Converter from method"
+                text="Converter from Method"
                 description="Generates method for converting the instance of one class to another">
             <add-to-group group-id="JavaGenerateGroup1" anchor="after"
                           relative-to-action="Actions.ActionsPlugin.GenerateToString"/>
         </action>
-        <!-- Add your actions here -->
+
         <action
                 id="ConverterAction"
                 class="com.jiaqi.converter.ConverterAction"
-                text="Converter method"
+                text="Converter Method"
                 description="Generates method for converting the instance of one class to another"
         >
             <add-to-group
